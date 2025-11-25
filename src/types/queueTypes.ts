@@ -1,7 +1,7 @@
 export type Queue = {
     id: string;
-    combatantCount: number;
-    players?: Player[];
+    queueMode: QueueMode;
+    players: Player[];
 }
 
 export type Player = {
