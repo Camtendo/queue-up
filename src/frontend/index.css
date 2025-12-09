@@ -1,68 +1,535 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  --bg-primary: #121212;
+  --bg-secondary: #1E1E1E;
+  --bg-tertiary: #2C2C2C;
+  --text-primary: #FFFFFF;
+  --text-secondary: #AAAAAA;
+  --accent: #FFFFFF;
+  --accent-disabled: #666666;
+  --danger: #FF4444;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  flex-direction: column;
   min-height: 100vh;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+#root {
+  width: 100%;
+  height: 100%;
 }
 
-button {
+/* Typography */
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  letter-spacing: -0.05em;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+/* Layout Containers */
+.landing-container,
+.page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.arena-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: var(--bg-primary);
+}
+
+/* Actions */
+.landing-actions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 1rem;
+}
+
+.divider {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+/* Buttons */
+.btn {
+  border: none;
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  transition: opacity 0.2s;
+  width: 100%;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+.btn:active {
+  opacity: 0.8;
+}
+
+.btn-primary {
+  background-color: var(--bg-tertiary);
+  /* Dark grey mockup style */
+  color: var(--text-primary);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-primary);
+}
+
+.btn-large {
+  padding: 1.2rem;
+  font-size: 1.1rem;
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.top-spacing {
+  margin-top: 2rem;
+}
+
+/* Forms */
+.form-group {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 6px;
+  border: 1px solid var(--bg-tertiary);
+  background-color: transparent;
+  /* Mockup white bg or outline? Mockup inputs are white with black text. */
+  /* Wait, the mockup CreateArena inputs are white bg, black border? Or Transparent?
+       Actually mockup CreateArena is white background? No, it's dark theme?
+       Ah, the mockup screenshot has White background for some screens?
+       "landing", "create-arena", "join-arena" have Black/Dark Grey headers ("qUp") and White body?
+       The "arena-doubles" is light grey/white.
+       Wait, I assumed Dark Mode because of "qUp" header block.
+       Looking closely at the mockup:
+       - Landing: Dark Header "qUp", White Body.
+       - Create Arena: Dark Header "qUp", White Body.
+       - Join Arena: Dark Header "qUp", White Body.
+       - Arena Doubles: Dark Header "G073H", Light Grey Body.
+       
+       So the designs are NOT fully dark mode. They are Light Mode with a Dark Header.
+       I implemented :root with dark variables. I should fix this to match the hybrid design.
+    */
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.input.disabled {
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.input-group {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+}
+
+.btn-add {
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Toggle */
+.toggle-group {
+  display: flex;
+  background-color: white;
+  border: 1px solid #333;
+  border-radius: 20px;
+  padding: 2px;
+  width: 100%;
+}
+
+.toggle-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0.5rem;
+  border-radius: 18px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.toggle-btn.active {
+  background-color: #333;
+  color: white;
+}
+
+/* Arena Specifics */
+.arena-header {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arena-id {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.menu-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.match-area {
+  background-color: #ccc;
+  /* Light grey area for match */
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  min-height: 150px;
+}
+
+.vs-badge {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 0.8rem;
+  color: #333;
+  border: 2px solid #333;
+  z-index: 10;
+}
+
+.team {
+  display: flex;
+  gap: 1rem;
+}
+
+.player-circle {
+  width: 70px;
+  height: 70px;
+  background-color: #333;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 5px;
+  word-break: break-word;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.queue-list-container {
+  flex: 1;
+  background-color: #f5f5f5;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.queue-item {
+  background-color: white;
+  /* Dark grey */
+  border: 1px solid #ddd;
+  margin-bottom: -1px;
+  /* Collapsed borders? */
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  touch-action: none;
+  /* For DnD */
+  position: relative;
+}
+
+.queue-item:first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.queue-item:last-child {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.queue-item-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.player-avatar-placeholder {
+  width: 40px;
+  height: 40px;
+  background-color: #555;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.player-name {
+  color: #333;
+  font-weight: 500;
+}
+
+/* Menu Drawer */
+.menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.menu-drawer {
+  width: 300px;
+  background-color: white;
+  height: 100%;
+  padding: 2rem;
+  color: #333;
+  box-shadow: -4px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  font-size: 2rem;
+  float: right;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.btn-action {
+  background-color: #333;
+  color: white;
+  padding: 1rem;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.team {
+  display: flex;
+  gap: 1rem;
+  cursor: pointer;
+  position: relative;
+  padding: 1rem;
+  border-radius: 1rem;
+  transition: background-color 0.2s;
+}
+
+.team:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  /* Light hover for team */
+}
+
+.winner-label {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
+}
+
+.team:hover .winner-label {
+  opacity: 1;
+}
+
+.remove-btn {
+  background: transparent;
+  color: #ff4444;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: .8;
+  padding: 0 0.5rem;
+  opacity: 0.5;
+  transition: opacity 0.2s;
+}
+
+.remove-btn:hover {
+  opacity: 1;
+  background: transparent;
+  color: red;
+}
+
+.match-timer-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 2px 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  font-family: monospace;
+  font-weight: bold;
+  z-index: 5;
+}
+
+.player-circle {
+  /* Ensure it handles Sortable interaction styles */
+  touch-action: none;
+  cursor: grab;
+}
+
+.player-circle:active {
+  cursor: grabbing;
+}
+
+.arena-controls {
+  display: flex;
+  align-items: center;
+}
+
+.toggle-btn-small {
+  background: transparent;
+  border: 1px solid #444;
+  color: #888;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-left: 2px;
+}
+
+.toggle-btn-small.active {
+  background: #333;
+  color: white;
+  border-color: #333;
+}
+
+.queue-controls {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.add-player-form {
+  display: flex;
+  flex: 1;
+  background: #f0f0f0;
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.add-player-form input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.add-player-form button {
+  background: #333;
+  color: white;
+  border: none;
+  width: 40px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.randomize-btn {
+  background: #f0f0f0;
+  border: none;
+  border-radius: 8px;
+  width: 42px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.randomize-btn:hover {
+  background: #e0e0e0;
 }
